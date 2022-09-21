@@ -20,6 +20,13 @@ function App() {
   const [user, setUser] = useState({name:"", password:""});
   const [error, setError] = useState("")
   const [authenticated, setAuth] = useState(false)
+
+    fetch("/login")
+        .then(res => res.json().then(data => {
+          console.log(data.express)
+        }))
+    
+
   const Login = details => {
     console.log(details)
     if(details.name == adminUser.name && details.password == adminUser.password){
@@ -29,9 +36,7 @@ function App() {
         name: details.name,
         password: details.password
       })
-
       console.log(authenticated)
-
     } else{
       setError("Falsche Eingabe!")
       console.log("Details don't match")
@@ -43,6 +48,7 @@ function App() {
     setUser({name:"", password:""})
     setAuth(false)
   }
+
 
   return (
     <Container className=""> 
