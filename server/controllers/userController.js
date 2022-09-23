@@ -19,34 +19,33 @@ const registerUser =  asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error('Bitte überprüfe deine Passwortseingabe!')
     }
+    //check if User already exist (by name)
     const findUser = await User.findOne({name})
-    console.log(findUser)
     if(findUser){
         res.status(400)
         throw new Error('Bitte einen anderen Namen wählen!')
     }
-
     // Hash pwd
     const salt = await bcrypt.genSalt(10)
     const hashedPwd = await bcrypt.hash(pwd, salt)
     console.log(hashedPwd)
     // Create user
     const user = await User.create({
-        _id: user.id,
+        //_id: user.id,
         name, 
         pwd: hashedPwd,
-        token: generateToken(user._id)
+        //token: generateToken(user._id)
     })
     if(user) {
         res.status(201).json({
             _id: user.id,
             name: user.name, 
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
         throw new Error('Bitte überprüfe deine Passwortseingabe!')
     }
-    res.json({message: 'Register User'})
 })
 
 

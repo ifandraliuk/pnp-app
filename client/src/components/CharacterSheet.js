@@ -7,7 +7,6 @@ import Figure from 'react-bootstrap/Figure'
 import ListGroup from 'react-bootstrap/ListGroup'
 import {useState, useEffect} from 'react'
 import Button from 'react-bootstrap/Button'
-import {useRef} from 'react';
 
 
 
@@ -15,8 +14,8 @@ function CharacterSheet() {
     const MAX = 70
     const AllClasses = ['Waffenschmied', 'Schildwache', 'Waldläufer', 
     'Assasine', 'Arkan Magier', 'Druide', 'Monk', 'Kleriker']
-    const ManaClasses = ['Arkan Magier', 'Druide'] //Nekromant
-    const SpiritClasses = ['Monk', 'Kleriker']
+    //const ManaClasses = ['Arkan Magier', 'Druide'] //Nekromant
+    //const SpiritClasses = ['Monk', 'Kleriker']
     const AttributeNames = ['Stärke', 'Gechicklichkeit', 'Intelligenz', 'Vitalität', 'Ausdauer', 'Charisma', 'Mana', 'Spirituelle Kraft']
     const [stamina, setStamina] = useState(0)
     const [vitality, setVitality] = useState(0)
@@ -81,7 +80,7 @@ function CharacterSheet() {
     }, [attr]) 
 
     useEffect(()=>{
-        let manaId = attr.map(v=>v.name).indexOf('mana')
+        //let manaId = attr.map(v=>v.name).indexOf('mana')
         let spiritId = attr.map(v=>v.name).indexOf('spirit')
         if(!document.getElementById("spiritLabel").classList.contains('disabled')){
             setSpirit(parseInt(attr[spiritId].val)*10)
@@ -90,7 +89,7 @@ function CharacterSheet() {
 
     }, [kind, type])
 
-    const changeType = e => {
+/*     const changeType = e => {
         console.log(e.target.id)
         let id = e.target.id
         let mana =  document.getElementById("manaLabel")
@@ -118,7 +117,7 @@ function CharacterSheet() {
                 mana.classList.add("disabled")
             }           
         }
-    }
+    } */
     const updateAttrs = id => e => {
         console.log(id)
         console.log(e.target.value)

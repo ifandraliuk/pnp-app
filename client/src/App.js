@@ -1,15 +1,13 @@
 //import './App.css';
 import React, {useState} from 'react';
+//import 'react-toastify/dist/ReactTostify.css'
 import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import LoginForm from './pages/LoginForm';
-import Button from 'react-bootstrap/Button'
+import LoginPage from './pages/LoginPage';
 import ShowPlayer from './pages/ShowPlayer';
-import { Routes, Route, Redirect } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import CreatePlayer from './pages/CreatePlayer';
 import Talents from './pages/Talents';
-import './App.css'
+import RegisterPage from './pages/RegisterPage';
 
 
 function App() {
@@ -21,15 +19,17 @@ function App() {
   const [error, setError] = useState("")
   const [authenticated, setAuth] = useState(false)
 
-    fetch("/login")
+/*     fetch("/login")
         .then(res => res.json().then(data => {
           console.log(data.express)
-        }))
-    
+        })) */
+  
+  const Auth = details => {
 
+  }      
   const Login = details => {
     console.log(details)
-    if(details.name == adminUser.name && details.password == adminUser.password){
+    if(details.name === adminUser.name && details.password === adminUser.password){
       setAuth(true)
       console.log("Logged in as admin")
       setUser({
@@ -53,10 +53,9 @@ function App() {
   return (
     <Container className=""> 
       <Routes>
-      {(authenticated) ? (
-        <Route index element={<ShowPlayer user={user} Logout={Logout}/>}></Route>): 
-        <Route index element={<LoginForm Login={Login} error={error}/>}></Route>}       
-         <Route path="/show" element={<ShowPlayer/>}></Route>
+        <Route index element={<LoginPage Login={Login} error={error}/>}></Route>
+        <Route path="/register" element={<RegisterPage Auth={Auth} error={error}/>}></Route>     
+        <Route path="/show" element={<ShowPlayer/>}></Route>
         <Route path="/create" element={<CreatePlayer/>}></Route>
         <Route path="/talents" element={<Talents/>}></Route>
       </Routes>
