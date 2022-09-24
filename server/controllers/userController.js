@@ -75,21 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route GET /users/me
 // @access Private
 const getUserData = asyncHandler(async (req, res) => {
-    const {_id, name} = await User.findById(req.user.id)
-    const user = await User.findById(req.user.id)
-    if(user){
-        console.log(user.talents)
-        res.status(200).json({
-            id: _id,
-            name, 
-            talents: user.talents
-
-        })
-    } else {
-        res.status(400)
-        throw new Error('Not allowed!')
-    }
-
+    res.status(200).json(req.user)
 })
 
 const setUserTalent = asyncHandler(async (req, res)=>{

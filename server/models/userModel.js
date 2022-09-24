@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-
+const userTalents = require('./userTalentsModel')
+const general = require('./generalModel')
 
 const classTypeSchema = mongoose.Schema({
     type: {
@@ -9,7 +10,7 @@ const classTypeSchema = mongoose.Schema({
 
 })
 
-const userTalents = require('./userTalentsModel')
+
 
 const userSchema = mongoose.Schema({
     name: {
@@ -20,35 +21,13 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Bitte das Passwort eingeben!']
     }, 
+    general: {
+        type: general.schema
+    },
     talents: {
         type: [userTalents.schema]
     }
 })
 
 
-
-
-const mainInfoSchema = mongoose.Schema({
-    age: {
-        type: Number,
-    },
-    haircolor: {
-        type: String
-     }, 
-    sex: {
-        type: String,
-     }, 
-    eyecolor: {
-        type: String,
-     }, 
-    origin: {
-        type: String
-     },
-    more: {
-        type: String
-    }, 
-    haircut: {
-        type: String
-    }
-})
 module.exports = mongoose.model('User', userSchema)

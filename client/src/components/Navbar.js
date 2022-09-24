@@ -1,22 +1,31 @@
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate,  redirect} from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar'
-
+import { useSelector, useDispatch} from 'react-redux';
+import {logout, reset} from '../features/auth/AuthSlice'
 function NavbarComp() {
+  const {user} = useSelector((state)=>state.auth)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+  }
   return (
    <Container>
-
     <Row>
         <Col>
         <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Neuer Charakter</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/player">{user ? user.name: 'Neuer Charakter'}</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/create">Allgemeines</Nav.Link>
             <Nav.Link as={Link} to="/talents">Talente</Nav.Link>
-            <Button className="outline-primary justify-content-end">Speichern</Button>
+            <Nav.Link>Datenbank</Nav.Link>
+            {user? (<Button as={Link} to="/" onClick= {onLogout}>Ausloggen</Button>):<></>}
           </Nav>
         </Container>
       </Navbar>

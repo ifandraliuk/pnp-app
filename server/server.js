@@ -16,5 +16,7 @@ app.use(errorHandler)
 app.use('/users', require('./routes/userRoutes'))
 app.use('/talents', require('./routes/talentRoutes'))
 
+app.use('/general', require('./routes/generalInfoRoutes'))
+
 app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 

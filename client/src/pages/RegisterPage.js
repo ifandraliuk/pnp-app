@@ -24,7 +24,7 @@ function RegisterPage({Auth, error}) {
             toast.error(msg)
         }
         if(isSuccess || user) {
-            navigate('/show')
+            navigate('/player')
         }
         // Set everything to false
         dispatch(reset())

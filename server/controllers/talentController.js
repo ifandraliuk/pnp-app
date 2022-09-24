@@ -28,12 +28,11 @@ const updateTalent = asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error("Der Talent wurde nicht gefunden")
     }
-    const user = await User.findById(req.user.id)
-    if(!user){
+    if(!req.user){
         res.status(401)
     }
     // Logged in user matches talent user
-    if(talent.user.toString() !== user.id){
+    if(talent.user.toString() !== req.user.id){
         res.status(401)
     }
     const toUpdate = await Talent.findByIdAndUpdate(req.params.id, req.body, {new: true,})
