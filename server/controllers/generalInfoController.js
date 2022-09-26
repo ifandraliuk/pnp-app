@@ -3,6 +3,7 @@ const User = require('../models/userModel')
 const General = require('../models/generalModel')
 
 // Get general ibfo
+
 const getGeneral = asyncHandler( async (req, res) => {
     const user = await User.findById(req.user.id)
     if(!user){
@@ -11,10 +12,11 @@ const getGeneral = asyncHandler( async (req, res) => {
     }
     if(user.general){
         console.log('general info already added')
-        console.log(user.general)
         res.status(200).json(user.general)
-    } 
-    res.status(200).json({age:0, haircolor:''})
+    }  else {
+        res.status(200).json({age:0, haircolor:''})
+    }
+    
 })
 
 
@@ -25,6 +27,7 @@ const createGeneral = asyncHandler( async (req, res) => {
         throw new Error("Falsch! Das Feld darf nicht leer sein")
     }
     const gen = await General.create({
+        kind: req.body.kind,
         age: req.body.age,
         haircolor: req.body.haircolor,
         sex: req.body.sex,

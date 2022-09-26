@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 const generalSchema = mongoose.Schema(
     {
+        kind: {
+            type: String,
+            required: [true, 'Die Art eingeben']
+        },
         age:{
             type: Number,
             required: [true, 'das Alter einbegben']

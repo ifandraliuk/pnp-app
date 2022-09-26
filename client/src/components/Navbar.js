@@ -25,7 +25,7 @@ function NavbarComp() {
             <Nav.Link as={Link} to="/create">Allgemeines</Nav.Link>
             <Nav.Link as={Link} to="/talents">Talente</Nav.Link>
             <Nav.Link>Datenbank</Nav.Link>
-            {user? (<Button as={Link} to="/" onClick= {onLogout}>Ausloggen</Button>):<></>}
+            {user? (<Button as={Link} to="/" variant="light" className="ms-end" onClick= {onLogout}>Ausloggen</Button>):<></>}
           </Nav>
         </Container>
       </Navbar>

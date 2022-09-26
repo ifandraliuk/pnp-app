@@ -1,15 +1,21 @@
-import React, { Fragment, useEffect } from 'react'
-import { Container, Spinner } from 'react-bootstrap';
-
+import React, { useEffect } from 'react';
+import { Container, Spinner, Row, Col } from 'react-bootstrap';
+import Figure from 'react-bootstrap/Figure'
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import GeneralItem from '../components/GeneralItem';
+import GeneralFull from '../components/GeneralFull';
+import AttributesFull from '../components/AttributesFull';
+import Attributes from '../components/Attributes';
+import Bars from '../components/Bars'
 import NavbarComp from '../components/Navbar';
-import {getGeneral, reset} from '../features/general/GeneralSlice'
+import {getGeneral, reset} from '../features/general/GeneralSlice';
+import { getAttributes, reset as attrReset} from '../features/attributes/attrSlice';
 
 function ShowPlayer() {
   const {user} = useSelector((state)=>state.auth)
   const {general, isLoading, isError, message} = useSelector((state)=>state.general)
+  const {attributes} = useSelector((state)=> state.attributes)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(()=> {
@@ -20,10 +26,12 @@ function ShowPlayer() {
       console.log(message)
     }
     dispatch(getGeneral())
-    console.log(general.age)
+    dispatch(getAttributes())
+    console.log(`Attributes: ${attributes.vitality}`)
     // Dismount general info
      return () => {
       dispatch(reset())
+      dispatch(attrReset())
     } 
   }, [user, navigate, isError, dispatch, message])
 
@@ -34,8 +42,23 @@ function ShowPlayer() {
   return (
     <Container>
       <NavbarComp />
-    <h2>Willkommen <span>{user ? user.name :"Freund!" }</span></h2>
-    {general.age > 1 ? (<><h4>Found data! Age: {general.age}</h4></>) : (<Fragment><h4>Du hast noch keine allgemeine Informationen eingetragen</h4><GeneralItem/></Fragment>)}
+    <Row className="m-2">
+      <Col className="d-flex flex-column bd-highlight mb-3"><Row><Figure><Figure.Image src="rogue-f.jpg"></Figure.Image></Figure></Row><Row><Bars attr={attributes}/></Row></Col>
+      <Col>{attributes.vitality >0 ? (<AttributesFull attr={attributes}/>): (<Attributes/>) }</Col>
+      <Col>Fertigkeiten</Col>
+    </Row>
+    <Row className="m-2">
+      <Col className="bg-light">Waffen</Col>
+      <Col>Talente</Col>
+    </Row>
+    <Row className="m-2">
+      <Col>Ausgerüstete Gegenstände</Col>
+      <Col>Inventar</Col>
+    </Row>
+    <Row>{general.age !== 0 ? (<GeneralFull general={general}/>
+    
+    ) : (<GeneralItem/>)}</Row>
+    
   </Container>
   )
 }

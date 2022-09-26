@@ -1,19 +1,20 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import generalService from './generalService'
+import attrService from './attrService'
 
 const initialState = {
-    general: {},
+    attributes: {},
     isError: false, 
     isSuccess: false,
     isLoading: false,
     message: ''
 }
 
-//Create general info
-export const createGeneral = createAsyncThunk('/general/create', async(generalData, thunkAPI)=> {
+// Create attributes info
+export const createAttributes = createAsyncThunk('attributes/create', async(attributesData, thunkAPI)=> {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await generalService.createGeneral(generalData, token)
+        console.log(token, attributesData)
+        return await attrService.createAttributes(attributesData, token)
     } catch (error) {
         const msg = 
         (error.response && 
@@ -21,16 +22,17 @@ export const createGeneral = createAsyncThunk('/general/create', async(generalDa
             error.response.data.message) || 
             error.message || 
             error.toString()
+            console.log((error.message))
         return thunkAPI.rejectWithValue(msg)
     }
 })
 
 
 // Get general info for a user
-export const getGeneral = createAsyncThunk('/general/get', async(_, thunkAPI)=> {
+export const getAttributes = createAsyncThunk('attributes/get', async(_, thunkAPI)=> {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await generalService.getGeneral(token)
+        return await attrService.getAttributes(token)
     } catch (error) {
         const msg = 
         (error.response && 
@@ -41,36 +43,39 @@ export const getGeneral = createAsyncThunk('/general/get', async(_, thunkAPI)=> 
         return thunkAPI.rejectWithValue(msg)
     }
 })
-export const generalSlice = createSlice({
-    name: 'general',
+
+
+export const attrSlice = createSlice({
+    name: 'attribute',
     initialState,
     reducers: {
         reset: (state) => initialState
     },
     extraReducers: (builder) => {
         builder
-        .addCase(createGeneral.pending, (state)=>{
+        .addCase(createAttributes.pending, (state)=>{
             state.isLoading = true
         })
-        .addCase(createGeneral.fulfilled, (state, action)=> {
+        .addCase(createAttributes.fulfilled, (state, action)=> {
             state.isLoading = false
             state.isSuccess = true
-            state.general = action.payload
+            state.attributes = action.payload
+            //state.attributes.push(action.payload)
         })
-        .addCase(createGeneral.rejected, (state, action)=> {
+        .addCase(createAttributes.rejected, (state, action)=> {
             state.isLoading = false
             state.isError = true
             state.message = action.payload
         })
-        .addCase(getGeneral.pending, (state)=>{
+        .addCase(getAttributes.pending, (state)=>{
             state.isLoading = true
         })
-        .addCase(getGeneral.fulfilled, (state, action)=> {
+        .addCase(getAttributes.fulfilled, (state, action)=> {
             state.isLoading = false
             state.isSuccess = true
-            state.general = action.payload
+            state.attributes = action.payload
         })
-        .addCase(getGeneral.rejected, (state, action)=> {
+        .addCase(getAttributes.rejected, (state, action)=> {
             state.isLoading = false
             state.isError = true
             state.message= action.payload
@@ -78,5 +83,5 @@ export const generalSlice = createSlice({
     }
 })
 
-export const {reset} = generalSlice.actions
-export default generalSlice.reducer
+export const {reset} = attrSlice.actions
+export default attrSlice.reducer

@@ -14,9 +14,14 @@ app.use(bp.urlencoded({extended:true}))
 app.use(errorHandler)
 
 app.use('/users', require('./routes/userRoutes'))
+
 app.use('/talents', require('./routes/talentRoutes'))
 
+// General infos (haircolor, age)
 app.use('/general', require('./routes/generalInfoRoutes'))
+
+// Attributes (dexterity, vitality)
+app.use('/attributes', require('./routes/attributeRoutes'))
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 

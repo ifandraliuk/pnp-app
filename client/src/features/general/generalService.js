@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = '/general'
+const API_URL = '/general/'
 
 // Create general info
 const createGeneral = async (generalData, token) => {
@@ -10,7 +10,7 @@ const createGeneral = async (generalData, token) => {
         }
     }
 
-    const response = await axios.post(API_URL, generalData )
+    const response = await axios.post(API_URL, generalData, config )
     return response.data
 }
 

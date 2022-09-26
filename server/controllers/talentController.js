@@ -1,6 +1,5 @@
 const asyncHandler = require('express-async-handler')
 const Talent = require('../models/talentModel')
-const User = require('../models/userModel')
 
 
 const getTalent = asyncHandler( async (req, res) => {

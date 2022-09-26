@@ -49,7 +49,7 @@ function RegisterPage({Auth, error}) {
             }
             dispatch(register(userData))
         }
-        Auth(formData)
+        //Auth(formData)
     }
 
     if(isLoading){

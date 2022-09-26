@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const userTalents = require('./userTalentsModel')
 const general = require('./generalModel')
-
+const attribute = require('./attributesModel')
 const classTypeSchema = mongoose.Schema({
     type: {
         type: String,
@@ -26,7 +26,10 @@ const userSchema = mongoose.Schema({
     },
     talents: {
         type: [userTalents.schema]
-    }
+    },
+    attributes: {
+        type: attribute.schema
+    },
 })
 
 
