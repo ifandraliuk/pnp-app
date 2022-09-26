@@ -36,7 +36,6 @@ const createGeneral = asyncHandler( async (req, res) => {
         more: req.body.more,
         haircut: req.body.haircut
     }) 
-    console.log(gen)
     const usertoUpdate = await User.findById(req.user.id)
     if(gen && usertoUpdate){
         console.log(usertoUpdate)

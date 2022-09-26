@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const abilities = require('./abilitiesModel')
+const Abilities = require('./abilitiesModel')
 
 const classesSchema = mongoose.Schema(
     {
@@ -16,7 +16,7 @@ const classesSchema = mongoose.Schema(
             required: [true, 'Beschreibung eingeben']
         },
         abilities: {
-            type: [abilities.schema],
+            type: [Abilities.schema],
             required: [true, 'Fertigkeiten eingeben']
         },
         advantages: {
@@ -26,4 +26,4 @@ const classesSchema = mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('Class', classesSchema)
+module.exports = mongoose.model('UserClass', classesSchema)

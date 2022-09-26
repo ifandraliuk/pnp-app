@@ -4,7 +4,6 @@ const User = require('../models/userModel')
 
 const setAttributes = asyncHandler( async (req, res)=>{
     console.log('creating new attribute')
-    console.log(req)
     if(!req.user) {
         res.status(400)
         console.log("not authorized...")
@@ -50,8 +49,7 @@ const getAttributes = asyncHandler( async (req, res)=>{
 
     } else{
         console.log("attributes are empty")
-        console.log({vitality: 0})
-        res.status(200).json({vitality: 0})
+        res.status(200).json({})
     }
 })
 

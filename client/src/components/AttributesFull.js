@@ -6,7 +6,7 @@ function AttributesFull({attr}) {
   const attrKeys = Object.keys(attr)
   const AttributeNames = ['Stärke', 'Gechicklichkeit', 'Intelligenz', 'Vitalität', 'Ausdauer', 'Charisma', 'Mana', 'Spirituelle Kraft']
   return (
-    <Container className='border-bottom border-top border-dark m-2'>
+    <Container className='border-bottom border-top border-dark'>
     <h4>Attribute</h4>
     <ListGroup className="m-2">
     {AttributeNames.map((key, i)=>(

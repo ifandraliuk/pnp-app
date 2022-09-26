@@ -11,7 +11,7 @@ const abilitiesSchema = mongoose.Schema(
             required: [true, 'Kosten eingeben']
         },
         type: {
-            type: String,
+            type: String, // mana, spirit, stamina only 
             required: [true, 'Art der Fertigkeit eingeben']
         },
         description: {

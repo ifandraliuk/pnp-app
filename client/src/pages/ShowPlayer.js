@@ -27,7 +27,6 @@ function ShowPlayer() {
     }
     dispatch(getGeneral())
     dispatch(getAttributes())
-    console.log(`Attributes: ${attributes.vitality}`)
     // Dismount general info
      return () => {
       dispatch(reset())
@@ -43,8 +42,8 @@ function ShowPlayer() {
     <Container>
       <NavbarComp />
     <Row className="m-2">
-      <Col className="d-flex flex-column bd-highlight mb-3"><Row><Figure><Figure.Image src="rogue-f.jpg"></Figure.Image></Figure></Row><Row><Bars attr={attributes}/></Row></Col>
-      <Col>{attributes.vitality >0 ? (<AttributesFull attr={attributes}/>): (<Attributes/>) }</Col>
+      <Col xxl={3} className="d-flex flex-column bd-highlight mb-3"><Row><Figure><Figure.Image src="rogue-f.jpg"></Figure.Image></Figure></Row><Row><Bars attr={attributes}/></Row></Col>
+      <Col xxl={3}>{attributes.vitality >0 ? (<AttributesFull attr={attributes}/>): (<Attributes/>) }</Col>
       <Col>Fertigkeiten</Col>
     </Row>
     <Row className="m-2">
