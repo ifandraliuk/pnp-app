@@ -17,6 +17,7 @@ app.use('/users', require('./routes/userRoutes'))
 
 app.use('/talents', require('./routes/talentRoutes'))
 
+app.use('/classes', require('./routes/classesRoutes'))
 // General infos (haircolor, age)
 app.use('/general', require('./routes/generalInfoRoutes'))
 
