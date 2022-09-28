@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
 import { Container} from 'react-bootstrap'
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
-import {createGeneral} from '../features/general/GeneralSlice'
+import {createGeneral} from '../features/player/playerSlice'
 import Button from 'react-bootstrap/Button'
+
 function GeneralItem() {
     const [mainInfos, setMainInfos] = useState({
         age: 0, haircolor: '', sex:'männlich', eyecolor: '', origin: '', more: '', haircut: '', kind: 'Mensch'
     })
-    const {user} = useSelector((state)=>state.auth)
     const {age, haircolor, sex, eyecolor, origin, more, haircut, kind} = mainInfos
     const dispatch = useDispatch()
     const onChange = (e) => {
@@ -39,7 +39,7 @@ function GeneralItem() {
                     <Row>
                     <Form.Group as={Col} controlId="kind">
                             <Form.Label>Geschlecht</Form.Label>
-                            <Form.Select name="sex" value={kind} onChange={onChange}>
+                            <Form.Select name="kind" value={kind} onChange={onKind}>
                                 <option>Mensch</option>
                                 <option>Zwerg</option>
                                 <option>Elb</option>
@@ -87,7 +87,7 @@ function GeneralItem() {
                             <Form.Control name="haircut" value={haircut} onChange={onChange} placeholder="..."/>
                         </Form.Group> 
                     </Row>
-                    {age > 1 && kind && <Button className="mt-3 outline-primary justify-content-end" type="submit">Speichern</Button>} 
+                    {age > 1 && kind && <Button className="mt-3  justify-content-end" variant="dark" type="submit">Speichern</Button>} 
                     </Form>
                 </Col>
             </Row> 

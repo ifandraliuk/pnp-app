@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import {useDispatch} from 'react-redux'
-import {createAttributes} from '../features/attributes/attrSlice'
+import {createAttributes} from '../features/player/playerSlice'
 import { Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
-import { useNavigate } from 'react-router-dom';
+
+
 function Attributes() {
   const MAX = 70
   const AttributeNames = ['Stärke', 'Gechicklichkeit', 'Intelligenz', 'Vitalität', 'Ausdauer', 'Charisma', 'Mana', 'Spirituelle Kraft']
   const [attr, setAttr] = useState({strength: 0, dexterity:0, intelligent:0, vitality:0,stamina:0,charisma:0, mana:0, spirit: 0})
   const [pointsLeft, setPointsLeft] = useState(MAX)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   // updating used points
   useEffect(() => {
-    console.log(Object.values(attr))
     let val = Object.values(attr)
-    console.log(val)
-    console.log(typeof(attr.strength))
     let sumofAttr = 0
     val.forEach((el)=>{
-      if(el != NaN){
+      if(!isNaN(el)){
         sumofAttr += el
+      } else {
+        el = 0
       }
       
     })
     setPointsLeft(MAX - sumofAttr)
-    console.log(sumofAttr)
     //setPointsLeft(MAX - sumofAttr)
 
 }, [attr]) 

@@ -1,6 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import generalService from './generalService'
 
+// TO DELETE
+
 const initialState = {
     general: {},
     isError: false, 

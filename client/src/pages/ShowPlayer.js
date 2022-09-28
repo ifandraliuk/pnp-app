@@ -9,13 +9,14 @@ import AttributesFull from '../components/AttributesFull';
 import Attributes from '../components/Attributes';
 import Bars from '../components/Bars'
 import NavbarComp from '../components/Navbar';
-import {getGeneral, reset} from '../features/general/GeneralSlice';
-import { getAttributes, reset as attrReset} from '../features/attributes/attrSlice';
+import { getPlayer, reset } from '../features/player/playerSlice';
+import ClassList from '../components/ClassList';
+import ChooseClass from '../components/ChooseClass';
+
 
 function ShowPlayer() {
   const {user} = useSelector((state)=>state.auth)
-  const {general, isLoading, isError, message} = useSelector((state)=>state.general)
-  const {attributes} = useSelector((state)=> state.attributes)
+  const {player, isLoading, isError, message} = useSelector((state)=>state.player)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(()=> {
@@ -25,12 +26,10 @@ function ShowPlayer() {
     if(isError){
       console.log(message)
     }
-    dispatch(getGeneral())
-    dispatch(getAttributes())
+    dispatch(getPlayer())
     // Dismount general info
      return () => {
       dispatch(reset())
-      dispatch(attrReset())
     } 
   }, [user, navigate, isError, dispatch, message])
 
@@ -42,9 +41,12 @@ function ShowPlayer() {
     <Container>
       <NavbarComp />
     <Row className="m-2">
-      <Col xxl={3} className="d-flex flex-column bd-highlight mb-3"><Row><Figure><Figure.Image src="rogue-f.jpg"></Figure.Image></Figure></Row><Row><Bars attr={attributes}/></Row></Col>
-      <Col xxl={3}>{attributes.vitality >0 ? (<AttributesFull attr={attributes}/>): (<Attributes/>) }</Col>
-      <Col>Fertigkeiten</Col>
+      <Col xxl={3} className="d-flex flex-column bd-highlight mb-3"><Row><Figure><Figure.Image src="rogue-f.jpg"></Figure.Image></Figure></Row><Row>{player && player.attributes && <Bars attr={player.attributes}/>}</Row></Col>
+      <Col xxl={3}>{player && player.attributes ? (<AttributesFull attr={player.attributes}/>): (<Attributes/>) }</Col>
+      <Col>{
+        player && player.userclass ? (<ClassList userclass={player.userclass}/>) : (<ChooseClass/>)
+      }
+      </Col>
     </Row>
     <Row className="m-2">
       <Col className="bg-light">Waffen</Col>
@@ -54,7 +56,7 @@ function ShowPlayer() {
       <Col>Ausgerüstete Gegenstände</Col>
       <Col>Inventar</Col>
     </Row>
-    <Row>{general.age !== 0 ? (<GeneralFull general={general}/>
+    <Row>{player && player.general ? (<GeneralFull general={player.general}/>
     
     ) : (<GeneralItem/>)}</Row>
     

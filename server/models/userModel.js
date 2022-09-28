@@ -13,8 +13,8 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Bitte das Passwort eingeben!']
     }, 
-    userclass:{
-        type: mongoose.Types.ObjectId
+    userclass:{ ref:'Userclass',
+            type: mongoose.Schema.Types.ObjectId, 
     },
     general: {
         type: general.schema

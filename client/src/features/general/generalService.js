@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = '/general/'
-
+// TO DELEETE
 // Create general info
 const createGeneral = async (generalData, token) => {
     const config = {

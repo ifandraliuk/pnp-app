@@ -1,6 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import attrService from './attrService'
 
+
+// TO DELETE
 const initialState = {
     attributes: {},
     isError: false, 

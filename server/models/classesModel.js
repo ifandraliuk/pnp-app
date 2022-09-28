@@ -26,4 +26,4 @@ const classesSchema = mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('UserClass', classesSchema)
+module.exports = mongoose.model('Userclass', classesSchema)

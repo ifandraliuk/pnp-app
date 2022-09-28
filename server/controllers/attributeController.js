@@ -44,7 +44,7 @@ const getAttributes = asyncHandler( async (req, res)=>{
     }
     const user = await User.findById(req.user.id)
     if(req.user && user.attributes){
-        console.log(`succesfully ${user.attributes}`)
+        console.log(`succesfully`)
         res.status(200).json(user.attributes)
 
     } else{

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// TO DELEETE
 const API_URL = '/attributes/'
 
 // Create attributes

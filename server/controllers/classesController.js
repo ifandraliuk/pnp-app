@@ -2,14 +2,16 @@ const asyncHandler = require('express-async-handler')
 const UserClass = require('../models/classesModel')
 const User = require('../models/userModel')
 const Abilities = require('../models/abilitiesModel')
+const { default: mongoose } = require('mongoose')
 // @desc Get classes
 // @route GET /classes/:name
 // @access Public
 const getClass = asyncHandler( async (req, res) => {
-    if(!req.body.name){
-        res.status(400).json({message: "Name mot found"})
+    const userclasses = await UserClass.find({})
+    if(!userclasses){
+        res.status(400).json({message: "Keine Klassen gefunden"})
+        throw new Error("Falsch! Das Feld darf nicht leer sein")        
     }
-    const userclasses = await UserClass.find(req.name)
     res.status(200).json(userclasses)
 })
 
@@ -74,18 +76,22 @@ const setAbility = asyncHandler(async (req, res)=>{
 // @route POST /classes/forme
 // @access Private
 const addClass = asyncHandler( async (req, res) => {
-    const userClasses = await UserClass.findById()
-    if (!talent){
-        res.status(400)
-        throw new Error("Der Talent wurde nicht gefunden")
+    const userclass = await UserClass.find({name: req.body.name})
+    if (!userclass){
+        res.status(400).json({message: "Die Klasse wurde noch nicht hinzugefügt"})
+        throw new Error("Die Klasse wurde noch nicht hinzugefügt")
     }
     if(!req.user){
-        res.status(401)
+        res.status(401).json({message: "Nicht berechtigt"})
     }
-    // Logged in user matches talent user
-    if(talent.user.toString() !== req.user.id){
-        res.status(401)
+    const id = mongoose.Types.ObjectId(userclass._id)
+    console.log(id, typeof(id))
+    const user = await User.findByIdAndUpdate(req.user.id, {userclass: id}, {new:true})
+    if(!user){
+        res.status(401).json({message: "Update nicht erfolgreich"})
     }
+    console.log(userclass)
+    res.status(200).json(user)
     //const toUpdate = await Talent.findByIdAndUpdate(req.params.id, req.body, {new: true,})
     //res.status(200).json(toUpdate)
 })

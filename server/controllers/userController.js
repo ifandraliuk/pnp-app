@@ -61,7 +61,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: user.id,
             name: user.name,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+
         }) 
     }else {
         res.status(400)
@@ -71,12 +72,6 @@ const loginUser = asyncHandler(async (req, res) => {
     
 })
 
-// @desc Get user data
-// @route GET /users/me
-// @access Private
-const getUserData = asyncHandler(async (req, res) => {
-    res.status(200).json(req.user)
-})
 
 const setUserTalent = asyncHandler(async (req, res)=>{
     if(!req.body.point || !req.body.name){
@@ -113,5 +108,5 @@ const generateToken = (id) => {
 }
 
 module.exports = {
-    registerUser,loginUser, getUserData, setUserTalent,
+    registerUser,loginUser, setUserTalent,
 }

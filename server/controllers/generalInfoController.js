@@ -15,10 +15,8 @@ const getGeneral = asyncHandler( async (req, res) => {
         res.status(200).json(user.general)
     }  else {
         res.status(200).json({age:0, haircolor:''})
-    }
-    
+    }    
 })
-
 
 // Create general info for a User
 const createGeneral = asyncHandler( async (req, res) => {
@@ -46,8 +44,7 @@ const createGeneral = asyncHandler( async (req, res) => {
         console.log('error by creating collections')
         res.status(400)
         throw new Error("Falsch! Das Feld darf nicht leer sein")
-    }
-     
+    }    
 })
 
 module.exports = {

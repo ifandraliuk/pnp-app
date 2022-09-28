@@ -13,7 +13,11 @@ app.use(bp.json())
 app.use(bp.urlencoded({extended:true}))
 app.use(errorHandler)
 
+// Authentification, register routes
 app.use('/users', require('./routes/userRoutes'))
+
+// All infos about player & data updating
+app.use('/player', require('./routes/playerRoutes'))
 
 app.use('/talents', require('./routes/talentRoutes'))
 
