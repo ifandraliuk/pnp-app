@@ -5,7 +5,7 @@ import { addClass } from '../features/player/playerSlice';
 
 function ChooseClass() {
     const AllClasses = ['Waffenschmied', 'Schildwache', 'Waldläufer', 
-    'Assasine', 'Magier', 'Druide', 'Monk', 'Kleriker']
+    'Assassine', 'Magier', 'Druide', 'Monk', 'Kleriker']
     const [name, setType] = useState('')
     const dispatch = useDispatch()
     const handleSubmit = e => {

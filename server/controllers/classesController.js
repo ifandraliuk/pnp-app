@@ -4,7 +4,7 @@ const User = require('../models/userModel')
 const Abilities = require('../models/abilitiesModel')
 const { default: mongoose } = require('mongoose')
 // @desc Get classes
-// @route GET /classes/:name
+// @route GET /classes/
 // @access Public
 const getClass = asyncHandler( async (req, res) => {
     const userclasses = await UserClass.find({})
@@ -72,31 +72,7 @@ const setAbility = asyncHandler(async (req, res)=>{
     }
 })
 
-// @desc Add Class to user
-// @route POST /classes/forme
-// @access Private
-const addClass = asyncHandler( async (req, res) => {
-    const userclass = await UserClass.find({name: req.body.name})
-    if (!userclass){
-        res.status(400).json({message: "Die Klasse wurde noch nicht hinzugefügt"})
-        throw new Error("Die Klasse wurde noch nicht hinzugefügt")
-    }
-    if(!req.user){
-        res.status(401).json({message: "Nicht berechtigt"})
-    }
-    const id = mongoose.Types.ObjectId(userclass._id)
-    console.log(id, typeof(id))
-    const user = await User.findByIdAndUpdate(req.user.id, {userclass: id}, {new:true})
-    if(!user){
-        res.status(401).json({message: "Update nicht erfolgreich"})
-    }
-    console.log(userclass)
-    res.status(200).json(user)
-    //const toUpdate = await Talent.findByIdAndUpdate(req.params.id, req.body, {new: true,})
-    //res.status(200).json(toUpdate)
-})
 
 module.exports = {
-    getClass, setClass,
-    addClass, setAbility
+    getClass, setClass, setAbility
 }

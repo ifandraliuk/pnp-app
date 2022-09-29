@@ -19,9 +19,7 @@ function Attributes() {
     val.forEach((el)=>{
       if(!isNaN(el)){
         sumofAttr += el
-      } else {
-        el = 0
-      }
+      } 
       
     })
     setPointsLeft(MAX - sumofAttr)
@@ -52,7 +50,7 @@ function Attributes() {
         <Form onSubmit={handleSubmit}>
           {
             Object.keys(attr).map((key, i)=>(
-              <Form.Group controlId={key} key={key}>
+              <Form.Group controlId={AttributeNames[i]} key={i}>
                 <Form.Label>{AttributeNames[i]}</Form.Label>
                 <Form.Control type="number" name={key}  value={attr[key]} onChange={onChange}/>
               </Form.Group>

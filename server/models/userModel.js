@@ -9,6 +9,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Bitte einen Namen eingeben!']
     }, 
+    level: {
+        type: Number,
+    },
     pwd: {
         type: String,
         required: [true, 'Bitte das Passwort eingeben!']

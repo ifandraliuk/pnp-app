@@ -38,7 +38,7 @@ function GeneralItem() {
                 <Form onSubmit={handleSubmit}>
                     <Row>
                     <Form.Group as={Col} controlId="kind">
-                            <Form.Label>Geschlecht</Form.Label>
+                            <Form.Label>Art</Form.Label>
                             <Form.Select name="kind" value={kind} onChange={onKind}>
                                 <option>Mensch</option>
                                 <option>Zwerg</option>

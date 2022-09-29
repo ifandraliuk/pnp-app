@@ -15,23 +15,22 @@ function NavbarComp() {
     dispatch(reset())
   }
   return (
-   <Container>
-    <Row>
-        <Col>
-        <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand as={Link} to="/player">{user ? user.name: 'Neuer Charakter'}</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/create">Allgemeines</Nav.Link>
-            <Nav.Link as={Link} to="/talents">Talente</Nav.Link>
-            <Nav.Link>Datenbank</Nav.Link>
-            {user? (<Button as={Link} to="/" variant="light" className="ms-end" onClick= {onLogout}>Ausloggen</Button>):<></>}
-          </Nav>
-        </Container>
-      </Navbar>
-        </Col>
-    </Row>
-   </Container>
+          <Navbar collapseOnSelect expand="xl" bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand as={Link} to="/player">{user ? user.name: 'Neuer Charakter'}</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link as={Link} to="/create">Tagebuch</Nav.Link>
+                <Nav.Link as={Link} to="/talents">Alle Talente</Nav.Link>
+              </Nav>
+              <Nav>
+              <Nav.Link>Datenbank</Nav.Link>
+              {user? (<Button as={Link} to="/" variant="light" onClick= {onLogout}>Ausloggen</Button>):<></>}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
   )
 }
 

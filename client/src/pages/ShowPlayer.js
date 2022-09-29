@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container, Spinner, Row, Col } from 'react-bootstrap';
-import Figure from 'react-bootstrap/Figure'
+import Image from 'react-bootstrap/Image'
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import GeneralItem from '../components/GeneralItem';
@@ -40,14 +40,18 @@ function ShowPlayer() {
   return (
     <Container>
       <NavbarComp />
-    <Row className="m-2">
-      <Col xxl={3} className="d-flex flex-column bd-highlight mb-3"><Row><Figure><Figure.Image src="rogue-f.jpg"></Figure.Image></Figure></Row><Row>{player && player.attributes && <Bars attr={player.attributes}/>}</Row></Col>
-      <Col xxl={3}>{player && player.attributes ? (<AttributesFull attr={player.attributes}/>): (<Attributes/>) }</Col>
-      <Col>{
-        player && player.userclass ? (<ClassList userclass={player.userclass}/>) : (<ChooseClass/>)
-      }
-      </Col>
-    </Row>
+      <Row className="m-1">
+        <Col className="col-md-3 col-sm-12 bd-highlight">
+          <Row className=""><Image fluid src="rogue-f.jpg"></Image></Row>
+        </Col>
+        {/*<Col xxl={3}>{player && player.attributes ? (<AttributesFull attr={player.attributes}/>): (<Attributes/>) }</Col>*/}
+        <Col className="col-sm-12 col-md-9">{
+          player && player.userclass ? (<ClassList userclass={player.userclass}/>) : (<ChooseClass/>)
+        }
+        </Col>
+      </Row>
+    <Row className="">{player && player.attributes && <Bars attr={player.attributes}/>}</Row>
+    <Col xxl={3}>{player && player.attributes ? (<AttributesFull attr={player.attributes}/>): (<Attributes/>) }</Col>
     <Row className="m-2">
       <Col className="bg-light">Waffen</Col>
       <Col>Talente</Col>

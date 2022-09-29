@@ -6,6 +6,9 @@ const abilitiesSchema = mongoose.Schema(
             type: String,
             required: [true, 'Klasse eingeben']
         },
+        specialization: {
+            type: String, 
+        },
         price: {
             type: Number,
             required: [true, 'Kosten eingeben']
