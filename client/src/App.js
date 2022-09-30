@@ -7,13 +7,14 @@ import ShowPlayer from './pages/ShowPlayer';
 import { Routes, Route} from 'react-router-dom';
 import CreatePlayer from './pages/CreatePlayer';
 import Talents from './pages/Talents';
+import Enemies from './pages/Enemies';
 import RegisterPage from './pages/RegisterPage';
 
 
 function App() {
 
   return (
-    <Container className=""> 
+    <Container fluid className=""> 
       <Routes>
       <Route index element={<LoginPage/>}></Route>
         <Route path= "/" element={<LoginPage/>}></Route>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/player" element={<ShowPlayer/>}></Route>
         <Route path="/create" element={<CreatePlayer/>}></Route>
         <Route path="/talents" element={<Talents/>}></Route>
+        <Route path="/enemies" element={<Enemies/>}></Route>
       </Routes>
     </Container>
   );

@@ -23,9 +23,11 @@ function NavbarComp() {
               <Nav className="me-auto">
                 <Nav.Link as={Link} to="/create">Tagebuch</Nav.Link>
                 <Nav.Link as={Link} to="/talents">Alle Talente</Nav.Link>
+                
               </Nav>
               <Nav>
               <Nav.Link>Datenbank</Nav.Link>
+              <Nav.Link as={Link} to ="/enemies">Gegner</Nav.Link>
               {user? (<Button as={Link} to="/" variant="light" onClick= {onLogout}>Ausloggen</Button>):<></>}
               </Nav>
             </Navbar.Collapse>

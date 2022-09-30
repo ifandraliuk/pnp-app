@@ -38,19 +38,17 @@ function ShowPlayer() {
   }
 
   return (
-    <Container>
+    <Container fluid>
       <NavbarComp />
-      <Row className="m-1">
-        <Col className="col-md-3 col-sm-12 bd-highlight">
+      <Row className="m-1" >
+        <Col className="col-md-3 col-12">
           <Row className=""><Image fluid src="rogue-f.jpg"></Image></Row>
         </Col>
-        {/*<Col xxl={3}>{player && player.attributes ? (<AttributesFull attr={player.attributes}/>): (<Attributes/>) }</Col>*/}
-        <Col className="col-sm-12 col-md-9">{
-          player && player.userclass ? (<ClassList userclass={player.userclass}/>) : (<ChooseClass/>)
-        }
+        <Col className="col-12 col-md-9 ">{
+          player && player.userclass ? (<ClassList userclass={player.userclass} attr={player.attributes}/>) : (<ChooseClass/>)}
         </Col>
       </Row>
-    <Row className="">{player && player.attributes && <Bars attr={player.attributes}/>}</Row>
+    {/**<Row className="">{player && player.attributes && <Bars attr={player.attributes}/>}</Row>**/}
     <Col xxl={3}>{player && player.attributes ? (<AttributesFull attr={player.attributes}/>): (<Attributes/>) }</Col>
     <Row className="m-2">
       <Col className="bg-light">Waffen</Col>
