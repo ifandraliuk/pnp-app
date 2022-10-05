@@ -22,8 +22,6 @@ app.use('/player', require('./routes/playerRoutes'))
 app.use('/talents', require('./routes/talentRoutes'))
 
 app.use('/classes', require('./routes/classesRoutes'))
-// General infos (haircolor, age)
-app.use('/general', require('./routes/generalInfoRoutes'))
 
 // Attributes (dexterity, vitality)
 app.use('/attributes', require('./routes/attributeRoutes'))

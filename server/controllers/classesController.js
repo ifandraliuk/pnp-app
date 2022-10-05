@@ -53,7 +53,8 @@ const setAbility = asyncHandler(async (req, res)=>{
             name: req.body.name,
             price: req.body.price,
             type: req.body.type,
-            description: req.body.description
+            description: req.body.description,
+            specialization: req.body.specialization
         })
         if(!abilitiy){
             res.status(400).json(req.body)

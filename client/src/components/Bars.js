@@ -26,6 +26,7 @@ function Bars({attr, id, abilities}) {
         }
     }
     if (damage.type === 'ausdauer' || damage.type === "stamina"){
+      console.log("ausdauer o. stam")
         let val = stamina/attr.stamina*10
         if(val <= 100 && val>0){
           setPercentage((prev)=> ({
@@ -57,6 +58,7 @@ function Bars({attr, id, abilities}) {
             ...prev,
             [abilities[id].type]: val
         }))
+        setDamage({type: "ausdauer", val: abilities[id].price})
         let perc = stamina/attr.stamina*10
         if(val <= 100 && val>0){
           setPercentage((prev)=> ({

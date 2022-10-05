@@ -7,16 +7,16 @@ import GeneralItem from '../components/GeneralItem';
 import GeneralFull from '../components/GeneralFull';
 import AttributesFull from '../components/AttributesFull';
 import Attributes from '../components/Attributes';
-import Bars from '../components/Bars'
 import NavbarComp from '../components/Navbar';
-import { getPlayer, reset } from '../features/player/playerSlice';
+import { getPlayer } from '../features/player/playerSlice';
+import {logout, reset} from '../features/auth/AuthSlice'
 import ClassList from '../components/ClassList';
 import ChooseClass from '../components/ChooseClass';
 
 
 function ShowPlayer() {
-  const {user} = useSelector((state)=>state.auth)
-  const {player, isLoading, isError, message} = useSelector((state)=>state.player)
+  const {user, isLoading, isError, message} = useSelector((state)=>state.auth)
+  const {player} = useSelector((state)=>state.player)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(()=> {
@@ -25,15 +25,19 @@ function ShowPlayer() {
     }
     if(isError){
       console.log(message)
+      dispatch(logout())
+    }
+    if(player.isError){
+      dispatch(logout())
     }
     dispatch(getPlayer())
     // Dismount general info
      return () => {
       dispatch(reset())
     } 
-  }, [user, navigate, isError, dispatch, message])
+  }, [user, player.isError, navigate, isError, dispatch, message])
 
-  if(isLoading) {
+  if(isLoading || player.isLoading) {
     return <Spinner/>
   }
 

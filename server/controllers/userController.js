@@ -73,40 +73,11 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 
-const setUserTalent = asyncHandler(async (req, res)=>{
-    if(!req.body.point || !req.body.name){
-        res.status(400)
-        throw new Error('Bitte überprüfe deine Eingabe!')
-    }
-    //find talent by name
-    const talent = await Talent.find({name: req.body.name})
-    if(talent){
-        const talentId = Types.ObjectId(talent._id)
-        console.log(talentId)
-        const userTalent = await UserTalents.create({
-            talent: talentId,
-            points: req.body.point,
-        })
-        console.log(Types.ObjectId(userTalent._id))
-        if(userTalent){
-            const userToUpdate = await User.findById(req.user.id)
-            if(userToUpdate){
-                userToUpdate.talents.push(
-                    {talents: userTalent,
-                    })
-                res.status(201).json(userToUpdate)
-            }
-           
-        }
-    }
-
-})
-
 //Generate JWT
 const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30d',})
+    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '1d',})
 }
 
 module.exports = {
-    registerUser,loginUser, setUserTalent,
+    registerUser,loginUser,
 }

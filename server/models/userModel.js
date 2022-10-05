@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const userTalents = require('./userTalentsModel')
-const userClass = require('./classesModel')
 const general = require('./generalModel')
 const attribute = require('./attributesModel')
 
@@ -16,13 +15,15 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Bitte das Passwort eingeben!']
     }, 
-    userclass:{ ref:'Userclass',
-            type: mongoose.Schema.Types.ObjectId, 
+    userclass:{ 
+        ref:'Userclass',
+        type: mongoose.Schema.Types.ObjectId, 
     },
     general: {
         type: general.schema
     },
     talents: {
+        ref: 'UserTalents',
         type: [userTalents.schema]
     },
     attributes: {

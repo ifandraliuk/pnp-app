@@ -3,15 +3,19 @@ const User = require('../models/userModel')
 const Userclass = require('../models/classesModel')
 const Attribute = require('../models/attributesModel')
 const General = require('../models/generalModel')
+const Talent = require('../models/talentModel')
+const UserTalents = require('../models/userTalentsModel')
 const mongoose = require('mongoose')
 // @desc Get user data
 // @route GET /users/player
 // @access Private
 const getPlayer = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user.id).populate({path:'userclass', select:'name category description abilities advantages', model: 'Userclass'})
+    const user = await User.findById(req.user.id)
+    .populate({path: 'userclass', select:'name category description abilities advantages', model: 'Userclass'}, )
+    .populate({path:'talents.talent',  model:'Talent', select:'category name'})
     //console.log(user.userclass.name)
     if(!user){
-        res.status(400).json({message: 'Spieler nicht gefunden'})
+        res.status(500).json({message: 'Spieler nicht gefunden'})
     }
     res.status(200).json(user)
 })
@@ -126,6 +130,32 @@ const addClass = asyncHandler( async (req, res) => {
     //res.status(200).json(toUpdate)
 })
 
+const postTalent = asyncHandler(async (req, res)=>{
+    if(!req.body.point || !req.body.name){
+        res.status(400)
+        throw new Error('Bitte überprüfe deine Eingabe!')
+    }
+    //find talent by name
+    const talent = await Talent.findOne({name: req.body.name})
+    if(talent){
+
+        const userTalent = await UserTalents.create({
+            talent: talent._id,
+            points: req.body.point,
+        })
+        if(userTalent){
+            const doc = await User.findByIdAndUpdate(req.user.id, {$push:{talents: userTalent}}, {new: true})
+            if(doc){
+                res.status(201).json(doc)
+            } else {
+                res.status(400)
+            }
+           
+        }
+    }
+
+})
+
 module.exports = {
-    getPlayer, setAttributes, getGeneral, setGeneral, addClass
+    getPlayer, setAttributes, getGeneral, setGeneral, addClass, postTalent
 }

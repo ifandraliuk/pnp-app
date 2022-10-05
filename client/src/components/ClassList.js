@@ -1,28 +1,74 @@
 import React, {useState} from 'react'
-import { Button, Container } from 'react-bootstrap'
+import { Button, ButtonGroup, Container } from 'react-bootstrap'
 import Card from 'react-bootstrap/Card';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Bars from './Bars';
+import Form from 'react-bootstrap/Form';
+import Bar from './Bar';
 
 function ClassList({userclass, attr}) {
   const abilities = userclass.abilities
+  const [damage, setDamage] = useState({type: 'ausdauer', val: 0})
+  const [curr, setCurr] = useState({vitality: attr.vitality*10, stamina: attr.stamina*10, mana: attr.mana*10, spirit:attr.spirit*10})
   const spec = []
-  const els = []
   const counts = {};
-  const [id, setId] = useState(-1)
+  let bar = Object.entries(attr).filter(el=>["vitality", "stamina", "mana", "spirit"].includes(el[0]) && el[1]>0)
+  let renamedBar = []
+
+  // change eng attr names to german
+  bar.map((el) => {
+    let name = el[0] === "vitality" ? "vitalität" 
+    : el[0] === "stamina" ? "ausdauer"
+    : el[0] === "spirit" ? "spirituelle kraft"
+    : el[0]
+    let val = el[1]
+    return renamedBar.push([name, val])})
+  renamedBar = Object.fromEntries(renamedBar)
+  bar = Object.fromEntries(bar)
+  // count the amount of cards for each specialization
   Object.keys(abilities).map((ind) => {
     return spec.push(abilities[ind].specialization)})
   spec.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });  
-  //create check for 4 els - if 4 ? col-md-3 else col-md-4
-  
+
+
   const useAbility = e => {
-    console.log(e.target.name)
-    setId(e.target.name)
+    console.log("The button was pressed")
+    const ability = abilities[e.target.name]
+    const type = ability.type === "stamina" ? "ausdauer" 
+    : ability.type === "spirit" ? "spirituele kraft" 
+    : ability.type 
+    setDamage((prev)=> ({
+      ...prev,
+      type: type,
+      val: parseInt(ability.price)
+    }))
+    setCurr((prev)=> ({
+      ...prev,
+      [ability.type]: curr[ability.type] - damage.val > 0 ? curr[ability.type] - damage.val : 0
+  }))
   }
   
+  const onChange = e => {
+    setDamage((prev)=> ({
+      ...prev,
+      [e.target.name]: e.target.value
+  }))
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    damage.type === "vitalität" ? setCurr((prev)=> ({...prev, vitality: curr.vitality - damage.val })) 
+      : damage.type === "ausdauer" ? setCurr((prev)=> ({...prev, stamina: curr.stamina - damage.val}))
+      : damage.type === "spirituele kraft" ? setCurr((prev)=> ({...prev, spirit: curr.spirit - damage.val}))
+      : setCurr((prev)=> ({...prev, [damage.type]: curr[damage.type] - damage.val}))
+    }
+  const onReset = () => {
+    setCurr({vitality: attr.vitality*10, stamina: attr.stamina*10, mana: attr.mana*10, spirit:attr.spirit*10})
+    setDamage({type: "ausdauer", val: 0})
+    }
+
   return (
     <Container>
         <Tabs justify>
@@ -46,7 +92,32 @@ function ClassList({userclass, attr}) {
             </Tab>
           ))}        
         </Tabs>
-        <Row className="">{attr && <Bars attr={attr} id={id} abilities={abilities}/>}</Row>
+        <Form onSubmit={handleSubmit}>
+    <Form.Label as="h6">Werteeingabe</Form.Label>
+      <Row className="mb-2">
+        <Col>
+          <Form.Group>
+          <Form.Select className="text-capitalize" value={damage.type} name="type" onChange={onChange}>
+            {Object.keys(renamedBar).map((name)=>(
+              <option key={name}>{name}</option>
+            ))}
+            </Form.Select>
+          </Form.Group>
+          </Col>
+        <Col>
+          <Form.Control type="number" name="val" value={damage.val} onChange={onChange}></Form.Control>
+        </Col>
+        <Col>
+          <ButtonGroup>
+            <Button variant="secondary" type="submit" onClick={handleSubmit}>Berechnen</Button>
+            <Button variant="outline-secondary" type="reset" onClick={onReset}>Voll</Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
+    </Form>
+      {Object.keys(bar).map((name, i)=>(
+        <Bar name={name} key={i} max={parseInt(attr[name]*10)} curr={curr[name]}/>
+      ))}
     </Container>
   )
 }

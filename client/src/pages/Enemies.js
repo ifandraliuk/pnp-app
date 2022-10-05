@@ -21,8 +21,8 @@ function Gegner() {
       <ListGroup>
       {arr.map((el, i)=>(
         <ListGroup.Item key={i}>
-          {el}
-          <Form.Group name="hp">
+          {i+1}
+          <Form.Group id={i} name="hp">
             <Form.Label>Leben</Form.Label>
             <Form.Control></Form.Control>
           </Form.Group>

@@ -35,6 +35,9 @@ const updateTalent = asyncHandler( async (req, res) => {
         res.status(401)
     }
     const toUpdate = await Talent.findByIdAndUpdate(req.params.id, req.body, {new: true,})
+    if(!toUpdate){
+        res.status(400)
+    }
     res.status(200).json(toUpdate)
 })
 
